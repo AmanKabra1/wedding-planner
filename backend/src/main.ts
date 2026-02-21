@@ -1,28 +1,28 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // CORS
+  // Allow all origins (frontend can talk to backend)
   app.enableCors({
-    origin: ['http://localhost:4200', 'https://your-frontend-domain.com'],
+    origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    credentials: true,
+    allowedHeaders: 'Content-Type, Authorization',
   });
 
-  // Global prefix
+  // API prefix
   app.setGlobalPrefix('api');
 
   // Validation
-  app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
 
-  // Swagger
+  // Swagger docs
   const config = new DocumentBuilder()
-    .setTitle('Indian Wedding Planner API')
-    .setDescription('API for Indian Wedding & Cultural Events Planning')
+    .setTitle('Shaadi Vidhaan API')
+    .setDescription('Indian Wedding & Cultural Event Planner API')
     .setVersion('1.0')
     .addBearerAuth()
     .build();
@@ -30,8 +30,7 @@ async function bootstrap() {
   SwaggerModule.setup('api/docs', app, document);
 
   const port = process.env.PORT || 3000;
-  await app.listen(port);
+  await app.listen(port, '0.0.0.0');
   console.log(`🎊 Wedding Planner API running on port ${port}`);
-  console.log(`📚 Swagger: http://localhost:${port}/api/docs`);
 }
 bootstrap();
