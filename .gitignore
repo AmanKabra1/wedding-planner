@@ -1,0 +1,22 @@
+# Node modules — never commit these
+node_modules/
+dist/
+.angular/
+
+# Environment files — NEVER commit these, they have passwords!
+.env
+*.env
+.env.local
+.env.production
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/settings.json
+.idea/
