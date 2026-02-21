@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://your-backend-domain.com/api'
+  apiUrl: 'https://wedding-planner-production-4f26.up.railway.app/api'
 };
