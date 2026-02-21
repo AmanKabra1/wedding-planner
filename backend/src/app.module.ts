@@ -22,8 +22,8 @@ import { OrganizersModule } from './modules/organizer/organizers.module';
         password: configService.get('DB_PASSWORD', ''),
         database: configService.get('DB_DATABASE', 'wedding_planner'),
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: configService.get('NODE_ENV') !== 'production',
-        logging: configService.get('NODE_ENV') === 'development',
+        synchronize: true, // AUTO CREATE tables in all environments
+        logging: false,
       }),
       inject: [ConfigService],
     }),
@@ -37,3 +37,5 @@ import { OrganizersModule } from './modules/organizer/organizers.module';
   ],
 })
 export class AppModule {}
+
+
